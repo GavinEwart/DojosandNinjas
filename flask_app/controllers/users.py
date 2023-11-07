@@ -1,6 +1,6 @@
 from flask_app import app
 from flask import render_template, redirect, request, session
-from flask_app.models import user # import entire file, rather than class, to avoid circular imports
+from flask_app.models import ninja, dojo # import entire file, rather than class, to avoid circular imports
 # As you add model files add them the the import above
 # This file is the second stop in Flask's thought process, here it looks for a route that matches the request
 
@@ -10,9 +10,13 @@ from flask_app.models import user # import entire file, rather than class, to av
 
 # Read Users Controller
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route('/dojos')
+def all_dojos():
+    return render_template('dojos.html')
+
+@app.route('/ninjas')
+def create_ninja():
+    return render_template('ninjas.html')
 
 
 # Update Users Controller
