@@ -1,0 +1,32 @@
+:root {
+
+    .text-blue {
+        color: rgb(0, 85, 255);
+    }
+
+    .text-white {
+        color: white;
+    }
+
+    .text-gold {
+        color: gold;
+    }
+
+    .centered {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-height: 20vh; 
+    }
+    .section {
+        margin-top: 20px; 
+        margin-bottom: 20px; 
+    }
+    .bold-text {
+        font-weight: bold;
+    }
+    .new-dojo-div {
+        padding: 20px; 
+    }
+}

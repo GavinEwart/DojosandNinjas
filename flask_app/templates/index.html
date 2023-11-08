@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Dojo Management</title>
+    <style>
+        .centered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 70vh; /* Adjust the height as needed */
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="row justify-content-center centered section">
+            <div class="col-md-6 bg-dark new-dojo-div">
+                <h2 class="text-primary">New Dojo</h2>
+                <form action="/create_dojo" method="POST">
+                    <div class="form-group">
+                        <label for="new_dojo" class="text-white">Name:</label>
+                        <input type="text" id="new_dojo" name="name" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center centered section">
+            <div class="col-md-6 bg-dark new-dojo-div">
+                <h2 class="text-primary bold-text">All Dojos</h2>
+                <div id="dojos">
+                    <div class="text-gold bold-text">
+                        {% for dojo in dojos %}
+                            <a href="/dojos/{{ dojo.id }}" class="text-gold">{{ dojo.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center section">
+            <a href="/ninjas" class="btn btn-primary">Add Ninja</a>
+        </div>
+    </main>
+</body>
+</html>
+
+<!-- Format for adding images -->
+<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->

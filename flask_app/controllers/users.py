@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, url_for
 from flask_app.models import ninja, dojo # import entire file, rather than class, to avoid circular imports
 # As you add model files add them the the import above
 # This file is the second stop in Flask's thought process, here it looks for a route that matches the request
@@ -9,15 +9,68 @@ from flask_app.models import ninja, dojo # import entire file, rather than class
 
 
 # Read Users Controller
+# Routes
+
+@app.route('/')
+def index():
+    return redirect('/dojos')
 
 @app.route('/dojos')
 def all_dojos():
-    return render_template('dojos.html')
+    # Get a list of all dojos
+    dojos = dojo.Dojo.get_all_dojos()
+    print(dojos)  # Add a print statement to check the dojos
+    return render_template('index.html', dojos=dojos)
 
-@app.route('/ninjas')
+@app.route('/create_ninja', methods=['POST'])
 def create_ninja():
-    return render_template('ninjas.html')
+    dojo_id = request.form['dojo_type']
 
+    if dojo_id == '-- Select Dojo --':
+        return "Please select a valid dojo", 400
+
+    data = {
+        'dojo_id': dojo_id,
+        'first_name': request.form['fname'],
+        'last_name': request.form['lname'],
+        'age': request.form['age']
+    }
+
+    ninja_id = ninja.Ninja.create_ninja(data)
+
+    if ninja_id:
+        # Use url_for to construct the URL for the "show_dojo" route
+        return redirect(url_for('show_dojo', dojo_id=dojo_id))
+    else:
+        app.logger.error("Failed to create ninja: %s", data)
+        return "Failed to create ninja", 400
+    
+@app.route('/ninjas')
+def addninja():
+    # Get a list of all dojos for populating the dropdown
+    dojos = dojo.Dojo.get_all_dojos()
+    return render_template('addninja.html', dojos=dojos)
+
+@app.route('/dojos/<int:dojo_id>')
+def show_dojo(dojo_id):
+    # Get a list of all ninjas for the selected dojo
+    ninjas = ninja.Ninja.show_all_ninjas(dojo_id)
+    dojo_instance = dojo.Dojo.get_dojo_by_id(dojo_id)
+
+    if dojo_instance:
+        return render_template('showdojo.html', dojo=dojo_instance, ninjas=ninjas)
+    else:
+        return "Dojo not found", 404
+
+@app.route('/create_dojo', methods=['POST'])
+def create_dojo():
+    data = {
+        'name': request.form['name']
+    }
+
+    dojo.Dojo.create_new_dojo(data)
+        
+    return redirect('/dojos')
 
 # Update Users Controller
 

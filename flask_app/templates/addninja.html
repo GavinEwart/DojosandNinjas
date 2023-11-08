@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <title>Add Ninja</title>
+</head>
+<body>
+    <main class="container">
+        <div class="container mx-auto text-center bg-dark p-3">
+            <h1 class="text-primary">Add Ninja</h1>
+            <form action="/create_ninja" method="POST">
+                <div class="form-group">
+                    <label for="dojo_type" class="text-white">Select Dojo:</label>
+                    <select id="dojo_type" name="dojo_type" class="form-control">
+                        <option>-- Select Dojo --</option>
+                        {% for dojo in dojos %}
+                            <option value="{{ dojo.id }}">{{ dojo.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fname" class="text-white">First Name:</label>
+                    <input type="text" id="fname" name="fname" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="lname" class="text-white">Last Name:</label>
+                    <input type="text" id="lname" name="lname" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="age" class="text-white">Age:</label>
+                    <input type="text" id="age" name="age" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+            <a href="/dojos" class="btn btn-secondary mt-3">Home</a>
+        </div>
+    </main>
+</body>
+</html>
