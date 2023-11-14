@@ -52,6 +52,6 @@ class Ninja:
         result = db.query_db(query, data)
 
         if result:
-            return result  # You might return the ID of the newly created ninja if your database generates IDs.
+            return result 
         else:
             return None

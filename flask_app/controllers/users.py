@@ -53,8 +53,8 @@ def addninja():
 
 @app.route('/dojos/<int:dojo_id>')
 def show_dojo(dojo_id):
-    # Get a list of all ninjas for the selected dojo
-    ninjas = ninja.Ninja.show_all_ninjas(dojo_id)
+
+    ninjas = dojo.Dojo.get_ninjas_in_dojo(dojo_id)
     dojo_instance = dojo.Dojo.get_dojo_by_id(dojo_id)
 
     if dojo_instance:
