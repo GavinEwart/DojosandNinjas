@@ -35,7 +35,7 @@ To get a local copy up and running, follow these simple steps:
   
 6. Open your web browser and navigate to http://localhost:5000.
 
-## What I Learned
+## What I Learned.
 
 - This project demonstrates how to create a web application using Flask and MySQL.
 - It showcases one-to-many database relationships by associating ninjas with specific dojos.
